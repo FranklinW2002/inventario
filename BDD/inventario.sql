@@ -43,11 +43,10 @@ select * from Categorias_unidad_medidas
 
 drop table if exists Unidades_de_medida;
 create table Unidades_de_medida(
-codigo_cat serial not null ,
 nombre varchar (100)not null,
 descripcion varchar(100) not null,
 Categoria_udm char(1) not null,
-constraint Unidades_de_medida_pk primary key (codigo_cat),
+constraint Unidades_de_medida_pk primary key (nombre),
 constraint Unidades_de_medida_fk foreign key (Categoria_udm) references Categorias_unidad_medidas (codigo)
 );
 insert into Unidades_de_medida (nombre,descripcion,Categoria_udm)
@@ -71,24 +70,24 @@ drop table if exists Productos;
 create table Productos(
 codigo_cat serial not null ,
 nombre varchar (100) not null,
-udm int  not null,
+udm varchar (100)  not null,
 precio_venta money not null,
 tiene_iva boolean  not null,
 coste money not null,
 categoria int not null,
 strock int not null,
 constraint Productos_pk primary key (codigo_cat),
-constraint ProductosU_fk foreign key (udm) references Unidades_de_medida (codigo_cat),
+constraint ProductosU_fk foreign key (udm) references Unidades_de_medida (nombre),
 constraint ProductosC_fk foreign key (categoria) references categorias (codigo_cat)
 );
 insert into Productos (nombre,udm,precio_venta,tiene_iva,coste,categoria,strock)
-values ('coca cola pequeña','3',0.5804,true,0.3729,7,100);
+values ('coca cola pequeña','u',0.5804,true,0.3729,7,100);
 insert into Productos (nombre,udm,precio_venta,tiene_iva,coste,categoria,strock)
-values ('salsa de tomate','6',0.95,true,0.8736,3,0);
+values ('salsa de tomate','kg',0.95,true,0.8736,3,0);
 insert into Productos (nombre,udm,precio_venta,tiene_iva,coste,categoria,strock)
-values ('mostaza','6',0.95,true,0.89,3,0);
+values ('mostaza','kg',0.95,true,0.89,3,0);
 insert into Productos (nombre,udm,precio_venta,tiene_iva,coste,categoria,strock)
-values ('Fuze tea','3',0.8,true,0.7,7,50);
+values ('Fuze tea','u',0.8,true,0.7,7,50);
 
 select * from  Productos
 
@@ -131,8 +130,9 @@ constraint proveedores_fk foreign key (tipo_documento) references tipo_documento
 );
 insert into proveedores (identificador,tipo_documento,nombre,telefono,correo,direccion)
 values ('1792285747','C','Mateo Muñoz','0979516266','munogweg00@gamil.com','Cumbayork');
+
 insert into proveedores (identificador,tipo_documento,nombre,telefono,correo,direccion)
-values ('1792285747001','C','Natalia Mosuqera','0979516298','nataliaer0g0er0@gamil.com','La Tola');
+values ('1792285748001','R','Natalia Mosuqera','0979516298','nataliaer0g0er0@gamil.com','La Tola');
 
 select * from proveedores
 
