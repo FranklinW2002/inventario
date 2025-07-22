@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -75,7 +76,7 @@ public void recibir(Pedido pedido) throws KrakedevException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		PreparedStatement psT = null;
-		
+		PreparedStatement psS = null;
 		
 		
 		
@@ -109,6 +110,17 @@ public void recibir(Pedido pedido) throws KrakedevException{
 				psT.setInt(2, det.getCantidadRecibida());
 				psT.setInt(3, det.getCodigo());
 				psT.executeUpdate();
+				
+				Date fechaActual = new Date();
+				Timestamp fechaHoraActual = new Timestamp(fechaActual.getTime());
+				//historial Stock
+				psS = con.prepareStatement("insert into historia_Stock (fecha,referecia,producto,cantidad) "
+						+ "values (?,?,?,?)");
+				psS.setTimestamp(1, fechaHoraActual);
+				psS.setString(2, "pedido " + pedido.getCodigo());
+				psS.setInt(3,det.getProducto().getCodigo());
+				psS.setInt(4, det.getCantidadRecibida());
+				psS.executeUpdate(); 
 			}
 			
 		} catch (KrakedevException e) {
