@@ -23,7 +23,7 @@ insert into categorias (nombre,categoria_padre)
 values ('Sin alcohol',5);
 
 select * from categorias
-
+update categorias set nombre,categoria_padre where codigo_cat = 
 
 
 drop table if exists Categorias_unidad_medidas;
@@ -91,6 +91,11 @@ values ('Fuze tea','u',0.8,true,0.7,7,50);
 
 select * from  Productos
 
+update Productos set  nombre=?,udm=?,precio_venta=?,tiene_iva=?,coste=?,categoria=?,strock=? 
+where codigo_cat = 1 
+
+select * from  unidades_de_medida
+
 drop table if exists estados_pedido;
 create table  estados_pedido (
 codigo char (1) not null,
@@ -151,8 +156,15 @@ values ('1792285747','20/11/2023','R');
 insert into cabecera_pedido(proveedores,fecha,estado)
 values ('1792285747','20/11/2023','R');
 
-select * from cabecera_pedido
+select * from cabecera_pedido where proveedores = '1792285748001'
 
+update cabecera_pedido set estado = 'S' where numero = 1
+
+update detalle_pedido set subtotal = 1,cantidad_recibida = 90
+where codigo = 1
+
+select * from detalle_pedido 
+select * from detalle_pedido where codigo = 1
 drop table if exists detalle_pedido;
 create table detalle_pedido(
 codigo serial not null,
@@ -202,7 +214,7 @@ drop table if exists caberas_ventas;
 create table caberas_ventas(
 codigo serial not null,
 fecha timestamp not null,
-total_sin_iva money not null,
+total_sin_iva decimal not null,
 iva money not null,
 total money not null,
 constraint  caberas_ventas_pk primary key (codigo)

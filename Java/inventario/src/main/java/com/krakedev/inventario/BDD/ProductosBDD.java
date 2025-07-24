@@ -96,4 +96,31 @@ public class ProductosBDD {
 		}
 
 	}
+	
+	
+	public void actualizarproductos(Producto producto) throws KrakedevException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = ConexionBDD.obtenerConeccion();
+			ps = con.prepareStatement("update Productos set  nombre=?,udm=?,precio_venta=?,tiene_iva=?,coste=?,categoria=?,strock=? "
+					+ "where codigo_cat = ? ");
+			ps.setString(1, producto.getNombre());
+			ps.setString(2, producto.getUnidadMedida().getNombre());
+			ps.setBigDecimal(3, producto.getPrecioVenta());
+			ps.setBoolean(4, producto.isTieneIVA());
+			ps.setBigDecimal(5, producto.getCoste());
+			ps.setInt(6, producto.getCategoria().getCodigo());
+			ps.setInt(7, producto.getStock());
+			ps.setInt(8, producto.getCodigo());
+			ps.executeUpdate();
+		} catch (KrakedevException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new KrakedevException("error al consultar.detalle: " + e.getMessage());
+		}
+
+	}
 }
