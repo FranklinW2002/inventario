@@ -59,10 +59,8 @@ public class ServiciosPedidos {
 		PedidosBDD pedBDD = new PedidosBDD();
 		ArrayList<Pedido> pedidos = null;
 		try {
-			pedidos = pedBDD.buscar(proeveedor);
+			pedidos = pedBDD.buscarPedido(proeveedor);
 			
-			int i = 1;
-			System.out.println(pedidos.indexOf(i));
 			
 			return Response.ok(pedidos).build();
 		} catch (KrakedevException e) {

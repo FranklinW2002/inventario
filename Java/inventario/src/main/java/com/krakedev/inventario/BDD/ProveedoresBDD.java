@@ -117,8 +117,45 @@ public class ProveedoresBDD {
 			throw new KrakedevException("Error al consultar detalle:"+e.getMessage());
 			
 		}
-		
-		
+
+	}
+	
+	public Proveedor buscarProveedor(String subcadena) throws KrakedevException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		TipoDocumento td = null;
+		Proveedor p = null;
+
+		try {
+			con = ConexionBDD.obtenerConeccion();
+			ps = con.prepareStatement(
+					"select p.identificador,p.tipo_documento,td.descripcion,p.nombre,p.telefono,p.correo,p.direccion from proveedores p, tipo_documento td   "
+							+ "where p.tipo_documento=td.codigo  " + "and p.identificador=? ");
+			ps.setString(1, subcadena.toUpperCase());
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				String identificadorP = rs.getString("identificador");
+				String tipoDocumentoC = rs.getString("tipo_documento");
+				String tipoDocumentoD = rs.getString("descripcion");
+				String nombreP = rs.getString("nombre");
+				String telefonoP = rs.getString("telefono");
+				String correoP = rs.getString("correo");
+				String DireccionP = rs.getString("direccion");
+
+				td = new TipoDocumento(tipoDocumentoC, tipoDocumentoD);
+				p = new Proveedor(identificadorP, td, nombreP, telefonoP, correoP, DireccionP);
+			}
+		} catch (KrakedevException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new KrakedevException("error al consultar.detalle: " + e.getMessage());
+		}
+		return p;
+
 		
 	}
 }

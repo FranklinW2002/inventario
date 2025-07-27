@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:00:05:25 -0500] "GET /inventario/rest/pedidos/buscar/1792285747 HTTP/1.1" 200 435
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:00:05:33 -0500] "GET /inventario/rest/pedidos/buscar/1792285747 HTTP/1.1" 200 435
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:30:33 -0500] "GET /inventario/rest/pedidos/buscar/1792285747 HTTP/1.1" 200 583
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:34:40 -0500] "GET /inventario/rest/proveedores/buscarProveedor/1792285747 HTTP/1.1" 200 208
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:45:41 -0500] "PUT /inventario/rest/productos/actualizar HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:47:41 -0500] "POST /inventario/rest/categoria/crear HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:49:30 -0500] "POST /inventario/rest/categoria/actualizar HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:52:30 -0500] "GET /inventario/rest/pedidos/buscar/1792285747 HTTP/1.1" 200 583
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:54:38 -0500] "GET /inventario/rest/proveedores/buscarProveedor/1792285747 HTTP/1.1" 200 208
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:54:58 -0500] "GET /inventario/rest/proveedores/buscarProveedor/1792285747001 HTTP/1.1" 200 218
+0:0:0:0:0:0:0:1 - - [26/Jul/2025:20:57:35 -0500] "GET /inventario/rest/productos/buscarProductos/m HTTP/1.1" 200 479

@@ -129,35 +129,42 @@ public class PedidosBDD {
 		}
 	}
 
-	public ArrayList<Pedido> buscar(String proeveedor) throws KrakedevException {
-
+	public ArrayList<Pedido> buscarPedido(String subcadena) throws KrakedevException {
+		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Pedido p = null;
+		Proveedor pro = null;
+		EstadoPedido ep = null;
 
-		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-		Pedido pedido = new Pedido();
-		EstadoPedido estado  = new EstadoPedido();
-		Proveedor prov = new Proveedor();
 		try {
 			con = ConexionBDD.obtenerConeccion();
-			ps = con.prepareStatement("select * from cabecera_pedido where proveedores = ? ");
-			ps.setString(1, proeveedor);
+			ps = con.prepareStatement("select cp.numero,cp.proveedores,p.tipo_documento,p.nombre,  "
+					+ "p.telefono,p.correo,p.direccion,cp.fecha,cp.estado , ep.descripcion  "
+					+ "from cabecera_pedido cp,proveedores p,estados_pedido ep  "
+					+ "where cp.proveedores=p.identificador  " + "and cp.estado=ep.codigo " + "and cp.proveedores=?");
+			ps.setString(1, subcadena.toUpperCase());
 			rs = ps.executeQuery();
-			while (rs.next()) {
-				
-				int codigo = rs.getInt("numero");
-				prov.setIdentificador(rs.getString("proveedores"));
-				Date fecha = rs.getDate("fecha");
-				estado.setCodigo(rs.getString("estado"));
-				
-				pedido.setCodigo(codigo);
-				pedido.setEstado(estado);
-				pedido.setFecha(fecha);
-				pedido.setProveedor(prov);
-				pedidos.add(pedido);
-			}
 
+			while (rs.next()) {
+				int numero = rs.getInt("numero");
+				String identificadorP = rs.getString("proveedores");
+				String tipoDocumentoP = rs.getString("tipo_documento");
+				String nombreP = rs.getString("nombre");
+				String telefonoP = rs.getString("telefono");
+				String correoP = rs.getString("correo");
+				String DireccionP = rs.getString("nombre");
+				Date fecha = rs.getDate("fecha");
+				String estadoC = rs.getString("estado");
+				String DireccionE = rs.getString("descripcion");
+
+				pro = new Proveedor(identificadorP, nombreP, telefonoP, correoP, DireccionP, tipoDocumentoP);
+				ep = new EstadoPedido(estadoC, DireccionE);
+				p = new Pedido(numero, pro, fecha, ep,null);
+
+				pedidos.add(p);
+			}
 		} catch (KrakedevException e) {
 			e.printStackTrace();
 			throw e;
@@ -165,6 +172,7 @@ public class PedidosBDD {
 			e.printStackTrace();
 			throw new KrakedevException("error al consultar.detalle: " + e.getMessage());
 		}
+
 		return pedidos;
 	}
 

@@ -15,16 +15,14 @@ import com.krakedev.inventario.BDD.ProveedoresBDD;
 import com.krakedev.inventario.entidades.Proveedor;
 import com.krakedev.inventario.exepciones.KrakedevException;
 
-
 @Path("proveedores")
 public class ServiciosProveedores {
-	
-	
+
 	@Path("buscar/{sub}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscar(@PathParam("sub")String subCadena){
-		
+	public Response buscar(@PathParam("sub") String subCadena) {
+
 		ArrayList<Proveedor> proveedores = null;
 		ProveedoresBDD provBDD = new ProveedoresBDD();
 		try {
@@ -35,17 +33,16 @@ public class ServiciosProveedores {
 			e.printStackTrace();
 			return Response.serverError().build();
 		}
-		
+
 	}
-	
+
 	@Path("crear")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response crearProveedor(Proveedor proveedor){
-		
-		
+	public Response crearProveedor(Proveedor proveedor) {
+
 		ProveedoresBDD provBDD = new ProveedoresBDD();
-		
+
 		try {
 			provBDD.agregarProveedor(proveedor);
 			return Response.ok().build();
@@ -54,8 +51,23 @@ public class ServiciosProveedores {
 			e.printStackTrace();
 			return Response.serverError().build();
 		}
-		
+
 	}
-	
-	
+
+	@Path("buscarProveedor/{sub}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response buscarProveedor(@PathParam("sub") String subCadena) {
+
+		Proveedor p = null;
+		ProveedoresBDD provBDD = new ProveedoresBDD();
+		try {
+			p = provBDD.buscarProveedor(subCadena);
+			return Response.ok(p).build();
+		} catch (KrakedevException e) {
+
+			e.printStackTrace();
+			return Response.serverError().build();
+		}
+	}
 }

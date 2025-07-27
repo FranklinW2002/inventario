@@ -8,7 +8,7 @@ public class Proveedor {
 	private String telefono;
 	private String correo;
 	private String Direccion;
-	
+	private String EstadoPedidoP;
 	
 	
 	
@@ -18,6 +18,19 @@ public class Proveedor {
 	
 	
 	
+	public Proveedor(String identificador, String nombre, String telefono, String correo, String direccion,
+			String estadoPedidoP) {
+		super();
+		this.identificador = identificador;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.correo = correo;
+		Direccion = direccion;
+		EstadoPedidoP = estadoPedidoP;
+	}
+
+
+
 	public Proveedor(String identificador, TipoDocumento tipoDocumeto, String nombre, String telefono, String correo,
 			String direccion) {
 		super();
@@ -74,6 +87,18 @@ public class Proveedor {
 	public String toString() {
 		return "Proveedor [identificador=" + identificador + ", tipoDocumeto=" + tipoDocumeto + ", nombre=" + nombre
 				+ ", telefono=" + telefono + ", correo=" + correo + ", Direccion=" + Direccion + "]";
+	}
+
+
+
+	public String getEstadoPedidoP() {
+		return EstadoPedidoP;
+	}
+
+
+
+	public void setEstadoPedidoP(String estadoPedidoP) {
+		EstadoPedidoP = estadoPedidoP;
 	}
 	
 	
